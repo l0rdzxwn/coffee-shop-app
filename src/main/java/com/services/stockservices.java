@@ -18,6 +18,11 @@ public class stockservices {
     public void insertProduct(String name, double price, String category, int stock){
         Product prod = new Product(name,price,category,stock);
         repo.insertProduct(prod);
+        
+    }
+    
+    public void deleteRecord(String id){
+        repo.deleteRecord(id);
     }
     
     public void updateProduct( String name, double price, String category, int stock){

@@ -518,7 +518,10 @@ public class StockForm extends javax.swing.JFrame {
     }//GEN-LAST:event_refreshBtnActionPerformed
 
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
-        // TODO add your handling code here:
+        String id = (String) stockTable.getValueAt(stockTable.getSelectedRow(),0);
+        
+        service.deleteRecord(id);
+        fetchProducts(stockTable);
     }//GEN-LAST:event_deleteBtnActionPerformed
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
@@ -538,6 +541,7 @@ public class StockForm extends javax.swing.JFrame {
         int stock = Integer.parseInt(quantityTF.getText().trim());
         
         service.insertProduct(nameTF.getText().trim(),price, cat, stock);
+        JOptionPane.showMessageDialog(null,"Product added successfully!");
         
         
     }//GEN-LAST:event_saveBtnActionPerformed
@@ -576,6 +580,7 @@ public class StockForm extends javax.swing.JFrame {
         int stock = Integer.parseInt(quantityUpdTF.getText().trim());
        
         service.updateProduct(name, price, cat, stock);
+        JOptionPane.showMessageDialog(null,"Product updated successfully!");
     }//GEN-LAST:event_updBtnActionPerformed
 
     private void priceUpdTFKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_priceUpdTFKeyTyped
@@ -592,9 +597,6 @@ public class StockForm extends javax.swing.JFrame {
 
     private void itemListCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemListCBActionPerformed
         String name = (String) itemListCB.getSelectedItem();
-        String cat;
-        String price;
-        String stock;
         
         List<Product> pList = service.fetchProducts();
         for(Product p : pList){
@@ -604,10 +606,6 @@ public class StockForm extends javax.swing.JFrame {
                 quantityUpdTF.setText(Integer.toString(p.getStock()));
             }
         }
-        
-      
-        
-        
     }//GEN-LAST:event_itemListCBActionPerformed
 
     /**

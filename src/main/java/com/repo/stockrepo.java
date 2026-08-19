@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -32,6 +33,15 @@ public class stockrepo {
         }
     }
     
+    public void deleteRecord(String id){
+        try{
+            PreparedStatement stmt = conn.prepareStatement("DELETE FROM stockinfo WHERE item_id = ?");
+            stmt.setString(1,id);
+            stmt.executeUpdate();
+        }catch(Exception ex){
+            System.out.println("EXCEPTION ERROR: "+ex.getMessage());
+        }
+    }
  
     public void updateProduct(Product product){
         try{
