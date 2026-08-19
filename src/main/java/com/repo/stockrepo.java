@@ -8,6 +8,8 @@ import java.sql.Connection;
 import com.services.dbservice;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 import src.models.Product;
 
 /**
@@ -30,4 +32,24 @@ public class stockrepo {
         }
     }
     
+    public List<Product> fetchProducts(){
+        List<Product> product = new ArrayList<>();
+        try{
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM stockinfo");
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                Product p = new Product(
+                rs.getString("item_id"),
+                rs.getString("item_name"),
+                rs.getDouble("item_price"),
+                rs.getString("category"),
+                rs.getInt("stock")
+                );
+                product.add(p);
+            }
+        }catch(Exception ex){
+            System.out.println("SQL ERROR: "+ex.getMessage());
+        }
+        return product;
+    }
 }

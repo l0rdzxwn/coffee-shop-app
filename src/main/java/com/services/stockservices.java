@@ -5,6 +5,7 @@
 package com.services;
 
 import com.repo.stockrepo;
+import java.util.List;
 import src.models.Product;
 
 /**
@@ -18,4 +19,9 @@ public class stockservices {
         Product prod = new Product(name,price,category,stock);
         repo.insertProduct(prod);
     }
+    
+    public List<Product> fetchProducts(){
+        return repo.fetchProducts();
+    }
+    
 }
