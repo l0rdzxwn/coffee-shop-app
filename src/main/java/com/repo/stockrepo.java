@@ -4,13 +4,14 @@
  */
 package com.repo;
 
+import com.models.Product;
 import java.sql.Connection;
 import com.services.dbservice;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-import src.models.Product;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -29,6 +30,29 @@ public class stockrepo {
             stmt.executeUpdate();
         }catch(Exception ex){
             System.out.println(ex.getMessage());
+        }
+    }
+    
+    public void deleteRecord(String id){
+        try{
+            PreparedStatement stmt = conn.prepareStatement("DELETE FROM stockinfo WHERE item_id = ?");
+            stmt.setString(1,id);
+            stmt.executeUpdate();
+        }catch(Exception ex){
+            System.out.println("EXCEPTION ERROR: "+ex.getMessage());
+        }
+    }
+ 
+    public void updateProduct(Product product){
+        try{
+            PreparedStatement stmt = conn.prepareStatement("UPDATE stockinfo SET item_price = ?,category = ?,stock = ? WHERE item_name = ?");
+            stmt.setDouble(1,product.getPrice());
+            stmt.setString(2,product.getCategory());
+            stmt.setInt(3,product.getStock());
+            stmt.setString(4, product.getName());
+            stmt.executeUpdate();
+        }catch(Exception ex){
+            System.out.println("SQL ERROR: "+ex.getMessage());
         }
     }
     
