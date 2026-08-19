@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package src.models;
+package com.models;
 
 /**
  *
@@ -25,6 +25,19 @@ public class Product {
     
     public Product( String name, double price, String category, int stock){
         this.name = name;
+        this.price = price;
+        this.category = category;
+        this.stock = stock;
+    }
+    
+    public Product(  double price, String item_id, String category, int stock){
+        this.item_id = item_id;
+        this.price = price;
+        this.category = category;
+        this.stock = stock;
+    }
+    
+        public Product(  String category, double price,  int stock){
         this.price = price;
         this.category = category;
         this.stock = stock;

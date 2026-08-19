@@ -4,9 +4,9 @@
  */
 package com.services;
 
+import com.models.Product;
 import com.repo.stockrepo;
 import java.util.List;
-import src.models.Product;
 
 /**
  *
@@ -18,6 +18,11 @@ public class stockservices {
     public void insertProduct(String name, double price, String category, int stock){
         Product prod = new Product(name,price,category,stock);
         repo.insertProduct(prod);
+    }
+    
+    public void updateProduct( String name, double price, String category, int stock){
+        Product prod = new Product(name,price,category,stock);
+        repo.updateProduct(prod);
     }
     
     public List<Product> fetchProducts(){
