@@ -127,7 +127,7 @@ public class StockForm extends javax.swing.JFrame {
                 deleteBtnActionPerformed(evt);
             }
         });
-        managePanel.add(deleteBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 0, 220, 50));
+        managePanel.add(deleteBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 0, 220, 50));
 
         editBtn.setFont(new java.awt.Font("Poppins SemiBold", 0, 24)); // NOI18N
         editBtn.setForeground(new java.awt.Color(64, 32, 0));

@@ -1,4 +1,5 @@
 
+import com.formdev.flatlaf.FlatLightLaf;
 import com.forms.StockForm;
 
 /*
@@ -12,6 +13,8 @@ import com.forms.StockForm;
  */
 public class main {
     public static void main(String args[]) {
+        System.setProperty("flatlaf.useNativeLibrary", "false");
+        FlatLightLaf.setup();
     java.awt.EventQueue.invokeLater(() -> {
         // Replace 'MyForm' with the exact name of your current Java file
         new StockForm().setVisible(true);
