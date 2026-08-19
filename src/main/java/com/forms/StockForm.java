@@ -8,6 +8,11 @@ import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 import com.services.stockservices;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import src.models.Product;
 
 /**
  *
@@ -23,11 +28,27 @@ public class StockForm extends javax.swing.JFrame {
     public StockForm() {
         initComponents();
         layout = (CardLayout) mainPanel.getLayout();
+        fetchProducts(stockTable);
         
     }
 
     stockservices service = new stockservices();
-    
+    private void fetchProducts(JTable table){
+        List<Product> productList = service.fetchProducts();
+        DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
+        tableModel.setRowCount(0);
+        for(Product product: productList){
+            List<Object> object = new ArrayList<>();
+            object.add(product.getID());
+            object.add(product.getName());
+            object.add(product.getPrice());
+            object.add(product.getCategory());
+            object.add(product.getStock());
+            object.add((product.getStock() < 10) ? "WARNING!!! Low" : (product.getStock() > 100) ? "High" : "Normal");
+            tableModel.addRow(object.toArray());
+        }
+        
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -319,7 +340,7 @@ public class StockForm extends javax.swing.JFrame {
     }//GEN-LAST:event_addBtNActionPerformed
 
     private void refreshBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshBtnActionPerformed
-        // TODO add your handling code here:
+       fetchProducts(stockTable);
     }//GEN-LAST:event_refreshBtnActionPerformed
 
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
@@ -328,6 +349,7 @@ public class StockForm extends javax.swing.JFrame {
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
         layout.show(mainPanel,"manage");
+        fetchProducts(stockTable);
     }//GEN-LAST:event_cancelBtnActionPerformed
 
     private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
