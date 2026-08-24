@@ -1,5 +1,6 @@
 
 import com.formdev.flatlaf.FlatLightLaf;
+import com.forms.OrderForm;
 import com.forms.StockForm;
 
 /*
@@ -17,7 +18,9 @@ public class main {
         FlatLightLaf.setup();
     java.awt.EventQueue.invokeLater(() -> {
         // Replace 'MyForm' with the exact name of your current Java file
-        new StockForm().setVisible(true);
+       
+        
+        new OrderForm().setVisible(true);
     });
 }
 }

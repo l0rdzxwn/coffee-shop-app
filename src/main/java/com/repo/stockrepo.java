@@ -20,6 +20,19 @@ import javax.swing.JOptionPane;
 public class stockrepo {
     Connection conn = dbservice.connectDB();
     
+    public void updateStock(Product product, int sold){
+        try{
+            PreparedStatement stmt = conn.prepareStatement("UPDATE stockinfo SET stock = ?, total_sold = ? WHERE item_name = ?");
+            stmt.setInt(1, product.getStock());
+            stmt.setInt(2, sold);
+            stmt.setString(3, product.getName());
+            stmt.executeUpdate();
+            stmt.close();
+        }catch(Exception ex){
+            System.out.println("EXCEPTION ERROR: "+ex.getMessage());
+        }
+    }
+    
     public void insertProduct(Product product){
         try{
             PreparedStatement stmt = conn.prepareStatement("INSERT INTO stockinfo(item_name,item_price,category,stock) VALUES(?,?,?,?)");
@@ -28,6 +41,7 @@ public class stockrepo {
             stmt.setString(3,product.getCategory());
             stmt.setInt(4,product.getStock());
             stmt.executeUpdate();
+            stmt.close();
         }catch(Exception ex){
             System.out.println(ex.getMessage());
         }
@@ -38,6 +52,7 @@ public class stockrepo {
             PreparedStatement stmt = conn.prepareStatement("DELETE FROM stockinfo WHERE item_id = ?");
             stmt.setString(1,id);
             stmt.executeUpdate();
+            stmt.close();
         }catch(Exception ex){
             System.out.println("EXCEPTION ERROR: "+ex.getMessage());
         }
@@ -51,6 +66,7 @@ public class stockrepo {
             stmt.setInt(3,product.getStock());
             stmt.setString(4, product.getName());
             stmt.executeUpdate();
+            stmt.close();
         }catch(Exception ex){
             System.out.println("SQL ERROR: "+ex.getMessage());
         }
@@ -71,6 +87,7 @@ public class stockrepo {
                 );
                 product.add(p);
             }
+            stmt.close();
         }catch(Exception ex){
             System.out.println("SQL ERROR: "+ex.getMessage());
         }

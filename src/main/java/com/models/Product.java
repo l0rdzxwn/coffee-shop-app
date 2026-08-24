@@ -37,9 +37,14 @@ public class Product {
         this.stock = stock;
     }
     
-        public Product(  String category, double price,  int stock){
+    public Product(  String category, double price,  int stock){
         this.price = price;
         this.category = category;
+        this.stock = stock;
+    }
+    
+    public Product(String name, int stock){
+        this.name = name;
         this.stock = stock;
     }
     
