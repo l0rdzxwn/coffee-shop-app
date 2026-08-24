@@ -21,6 +21,18 @@ public class stockservices {
         
     }
     
+    public void updateStock(String name, int orderQty){
+        List<Product> product = repo.fetchProducts();
+        int stock = 0;
+        for(Product prod : product){
+            if(prod.getName().equals(name)){
+                stock = prod.getStock() - orderQty;
+            }
+        }
+        Product p = new Product(name,stock);
+        repo.updateStock(p,orderQty);
+    }
+    
     public void deleteRecord(String id){
         repo.deleteRecord(id);
     }

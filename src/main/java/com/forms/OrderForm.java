@@ -2,7 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package src.forms;
+package com.forms;
+
+import com.models.Product;
+import com.services.stockservices;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -15,8 +23,10 @@ public class OrderForm extends javax.swing.JFrame {
      */
     public OrderForm() {
         initComponents();
+        fetchItemName();
     }
 
+    stockservices service = new stockservices();
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,39 +36,281 @@ public class OrderForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        mainPanel = new javax.swing.JPanel();
-        orderPanel = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        stockNum = new javax.swing.JLabel();
+        itemPrice = new javax.swing.JLabel();
+        catCB = new javax.swing.JComboBox<>();
+        itemCB = new javax.swing.JComboBox<>();
+        subtractItem = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        orderTable = new javax.swing.JTable();
+        itemCount = new javax.swing.JLabel();
+        totalCost = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        placeBtn = new javax.swing.JButton();
+        clearBtn = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        addBtN1 = new javax.swing.JButton();
+        addItem = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(1270, 800));
+        setMinimumSize(new java.awt.Dimension(1270, 800));
+        setPreferredSize(new java.awt.Dimension(1270, 800));
 
-        mainPanel.setLayout(new java.awt.CardLayout());
+        jPanel1.setBackground(new java.awt.Color(64, 32, 0));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        javax.swing.GroupLayout orderPanelLayout = new javax.swing.GroupLayout(orderPanel);
-        orderPanel.setLayout(orderPanelLayout);
-        orderPanelLayout.setHorizontalGroup(
-            orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1270, Short.MAX_VALUE)
-        );
-        orderPanelLayout.setVerticalGroup(
-            orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 800, Short.MAX_VALUE)
-        );
+        jLabel1.setFont(new java.awt.Font("Poppins Medium", 1, 48)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("POS COUNTER");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 41, -1, -1));
 
-        mainPanel.add(orderPanel, "card2");
+        jLabel2.setFont(new java.awt.Font("Poppins Medium", 1, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Order List");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 140, -1, -1));
+
+        jLabel3.setFont(new java.awt.Font("Poppins Medium", 1, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Item Price:");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(67, 410, -1, -1));
+
+        jLabel4.setFont(new java.awt.Font("Poppins Medium", 1, 24)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Select Item:");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(67, 297, -1, -1));
+
+        jLabel5.setFont(new java.awt.Font("Poppins Medium", 1, 24)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("In Stock:");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(67, 465, -1, -1));
+
+        stockNum.setFont(new java.awt.Font("Poppins Medium", 1, 24)); // NOI18N
+        stockNum.setForeground(new java.awt.Color(255, 255, 255));
+        stockNum.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        stockNum.setText("20");
+        jPanel1.add(stockNum, new org.netbeans.lib.awtextra.AbsoluteConstraints(305, 465, 100, -1));
+
+        itemPrice.setFont(new java.awt.Font("Poppins Medium", 1, 24)); // NOI18N
+        itemPrice.setForeground(new java.awt.Color(255, 255, 255));
+        itemPrice.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        itemPrice.setText("$100.00");
+        jPanel1.add(itemPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 410, 130, -1));
+
+        catCB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Coffee", "Non-Coffee", "Snacks", "Meal" }));
+        catCB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                catCBActionPerformed(evt);
+            }
+        });
+        jPanel1.add(catCB, new org.netbeans.lib.awtextra.AbsoluteConstraints(67, 214, 340, 55));
+
+        itemCB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemCBActionPerformed(evt);
+            }
+        });
+        jPanel1.add(itemCB, new org.netbeans.lib.awtextra.AbsoluteConstraints(67, 346, 340, 55));
+
+        subtractItem.setFont(new java.awt.Font("Poppins SemiBold", 0, 24)); // NOI18N
+        subtractItem.setForeground(new java.awt.Color(64, 32, 0));
+        subtractItem.setText("-");
+        subtractItem.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        subtractItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                subtractItemActionPerformed(evt);
+            }
+        });
+        jPanel1.add(subtractItem, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 520, 60, 50));
+
+        orderTable.setFont(new java.awt.Font("Poppins Medium", 1, 14)); // NOI18N
+        orderTable.setModel(new javax.swing.table.DefaultTableModel(
+
+            new String [] {
+                "Item", "Qty", "Price", "Total"
+            },0
+        ));
+        orderTable.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(orderTable);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 190, 642, 344));
+
+        itemCount.setFont(new java.awt.Font("Poppins Medium", 1, 24)); // NOI18N
+        itemCount.setForeground(new java.awt.Color(255, 255, 255));
+        itemCount.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        itemCount.setText("0");
+        jPanel1.add(itemCount, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 530, 110, -1));
+
+        totalCost.setFont(new java.awt.Font("Poppins Medium", 1, 24)); // NOI18N
+        totalCost.setForeground(new java.awt.Color(255, 255, 255));
+        totalCost.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        totalCost.setText("$100.00");
+        jPanel1.add(totalCost, new org.netbeans.lib.awtextra.AbsoluteConstraints(685, 540, 170, -1));
+
+        jLabel7.setFont(new java.awt.Font("Poppins Medium", 1, 24)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Total Cost: ");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 540, -1, -1));
+
+        placeBtn.setFont(new java.awt.Font("Poppins SemiBold", 0, 24)); // NOI18N
+        placeBtn.setForeground(new java.awt.Color(64, 32, 0));
+        placeBtn.setText("+ PLACE ORDER");
+        placeBtn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        placeBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                placeBtnActionPerformed(evt);
+            }
+        });
+        jPanel1.add(placeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 590, 320, 50));
+
+        clearBtn.setFont(new java.awt.Font("Poppins SemiBold", 0, 24)); // NOI18N
+        clearBtn.setForeground(new java.awt.Color(64, 32, 0));
+        clearBtn.setText("- CLEAR ORDER");
+        clearBtn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        clearBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clearBtnActionPerformed(evt);
+            }
+        });
+        jPanel1.add(clearBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 590, 320, 50));
+
+        jLabel8.setFont(new java.awt.Font("Poppins Medium", 1, 24)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Select Category:");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(67, 165, -1, -1));
+
+        addBtN1.setFont(new java.awt.Font("Poppins SemiBold", 0, 24)); // NOI18N
+        addBtN1.setForeground(new java.awt.Color(64, 32, 0));
+        addBtN1.setText("+ ADD ITEM");
+        addBtN1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        addBtN1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addBtN1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(addBtN1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 590, 340, 50));
+
+        addItem.setFont(new java.awt.Font("Poppins SemiBold", 0, 24)); // NOI18N
+        addItem.setForeground(new java.awt.Color(64, 32, 0));
+        addItem.setText("+");
+        addItem.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        addItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addItemActionPerformed(evt);
+            }
+        });
+        jPanel1.add(addItem, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 520, 60, 50));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void fetchItemName(){
+        String catName = (String) catCB.getSelectedItem();
+        List<Product> list = service.fetchProducts();
+        DefaultComboBoxModel model = (DefaultComboBoxModel) itemCB.getModel();
+        model.removeAllElements();
+        
+        for(Product p: list){
+            if(catName.equals(p.getCategory())){
+                model.addElement(p.getName());
+               String itemName = (String) itemCB.getSelectedItem();
+               if(itemName.equals(p.getName())){
+                   itemPrice.setText("$" + Double.toString(p.getPrice()));
+                   stockNum.setText(Integer.toString(p.getStock()));
+               }
+            }
+        }
+    }
+   
+    private void subtractItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_subtractItemActionPerformed
+        if(Integer.parseInt(itemCount.getText().trim()) != 0){
+            int num = Integer.parseInt(itemCount.getText());
+            num--;
+            itemCount.setText(Integer.toString(num));
+        }
+    }//GEN-LAST:event_subtractItemActionPerformed
+
+    private void placeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_placeBtnActionPerformed
+        
+        int rowCount = orderTable.getRowCount();
+        for(int i = 0; i < rowCount; i++){
+            service.updateStock(orderTable.getValueAt(i,0).toString(),Integer.parseInt(orderTable.getValueAt(i,1).toString()));
+        }
+        JOptionPane.showMessageDialog(null, "Order placed successfully!");
+    }//GEN-LAST:event_placeBtnActionPerformed
+
+    private void clearBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearBtnActionPerformed
+        DefaultTableModel model = (DefaultTableModel) orderTable.getModel();
+        model.setRowCount(0);
+    }//GEN-LAST:event_clearBtnActionPerformed
+
+    private void catCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_catCBActionPerformed
+        fetchItemName();
+        itemCount.setText("0");
+    }//GEN-LAST:event_catCBActionPerformed
+
+    private void addBtN1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtN1ActionPerformed
+        Object[] orderRow = new Object[4];
+        DefaultTableModel model = (DefaultTableModel) orderTable.getModel();
+        
+        
+        int numItem = Integer.parseInt(itemCount.getText());
+        double price = Double.parseDouble(itemPrice.getText().substring(1));
+        double totalperItem = numItem * price;
+        double totalOrderCost = Double.parseDouble(totalCost.getText().substring(1));
+        totalOrderCost += totalperItem;
+        
+        orderRow[0] = itemCB.getSelectedItem();
+        orderRow[1] = itemCount.getText();
+        orderRow[2] = "$"+price;
+        orderRow[3] = totalperItem;
+        model.addRow(orderRow);
+        
+       totalCost.setText("$"+Double.toString(totalOrderCost));
+        
+    }//GEN-LAST:event_addBtN1ActionPerformed
+
+    private void addItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addItemActionPerformed
+        List<Product> list = service.fetchProducts();
+        String productName = (String) itemCB.getSelectedItem();
+        int stockLimit = 0;
+        
+        for(Product p: list){
+            if(productName.equals(p.getName())){
+                stockLimit = p.getStock();
+                break;
+            }
+        }
+        
+        
+        if(Integer.parseInt(itemCount.getText().trim()) < stockLimit){
+            int num = Integer.parseInt(itemCount.getText());
+            num++;
+            itemCount.setText(Integer.toString(num));
+        }
+    }//GEN-LAST:event_addItemActionPerformed
+
+    private void itemCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCBActionPerformed
+        itemCount.setText("0");
+    }//GEN-LAST:event_itemCBActionPerformed
 
     /**
      * @param args the command line arguments
@@ -96,7 +348,26 @@ public class OrderForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel mainPanel;
-    private javax.swing.JPanel orderPanel;
+    private javax.swing.JButton addBtN1;
+    private javax.swing.JButton addItem;
+    private javax.swing.JComboBox<String> catCB;
+    private javax.swing.JButton clearBtn;
+    private javax.swing.JComboBox<String> itemCB;
+    private javax.swing.JLabel itemCount;
+    private javax.swing.JLabel itemPrice;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable orderTable;
+    private javax.swing.JButton placeBtn;
+    private javax.swing.JLabel stockNum;
+    private javax.swing.JButton subtractItem;
+    private javax.swing.JLabel totalCost;
     // End of variables declaration//GEN-END:variables
 }
