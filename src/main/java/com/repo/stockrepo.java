@@ -22,7 +22,7 @@ public class stockrepo {
     
     public void updateStock(Product product, int sold){
         try{
-            PreparedStatement stmt = conn.prepareStatement("UPDATE stockinfo SET stock = ?, total_sold = ? WHERE item_name = ?");
+            PreparedStatement stmt = conn.prepareStatement("UPDATE stockinfo SET stock = ?, total_sold = total_sold + ? WHERE item_name = ?");
             stmt.setInt(1, product.getStock());
             stmt.setInt(2, sold);
             stmt.setString(3, product.getName());

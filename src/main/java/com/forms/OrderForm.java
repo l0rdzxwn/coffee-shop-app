@@ -7,7 +7,9 @@ package com.forms;
 import com.models.Product;
 import com.services.stockservices;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -64,6 +66,9 @@ public class OrderForm extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(1270, 800));
 
         jPanel1.setBackground(new java.awt.Color(64, 32, 0));
+        jPanel1.setMaximumSize(new java.awt.Dimension(1270, 800));
+        jPanel1.setMinimumSize(new java.awt.Dimension(1270, 800));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1270, 800));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Poppins Medium", 1, 48)); // NOI18N
@@ -129,7 +134,7 @@ public class OrderForm extends javax.swing.JFrame {
         });
         jPanel1.add(subtractItem, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 520, 60, 50));
 
-        orderTable.setFont(new java.awt.Font("Poppins Medium", 1, 14)); // NOI18N
+        orderTable.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
         orderTable.setModel(new javax.swing.table.DefaultTableModel(
 
             new String [] {
@@ -150,7 +155,7 @@ public class OrderForm extends javax.swing.JFrame {
         totalCost.setFont(new java.awt.Font("Poppins Medium", 1, 24)); // NOI18N
         totalCost.setForeground(new java.awt.Color(255, 255, 255));
         totalCost.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        totalCost.setText("$100.00");
+        totalCost.setText("$0.00");
         jPanel1.add(totalCost, new org.netbeans.lib.awtextra.AbsoluteConstraints(685, 540, 170, -1));
 
         jLabel7.setFont(new java.awt.Font("Poppins Medium", 1, 24)); // NOI18N
@@ -255,11 +260,16 @@ public class OrderForm extends javax.swing.JFrame {
             service.updateStock(orderTable.getValueAt(i,0).toString(),Integer.parseInt(orderTable.getValueAt(i,1).toString()));
         }
         JOptionPane.showMessageDialog(null, "Order placed successfully!");
+        DefaultTableModel model = (DefaultTableModel) orderTable.getModel();
+        model.setRowCount(0);
+        totalCost.setText("$0.00");
+        
     }//GEN-LAST:event_placeBtnActionPerformed
 
     private void clearBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearBtnActionPerformed
         DefaultTableModel model = (DefaultTableModel) orderTable.getModel();
         model.setRowCount(0);
+        totalCost.setText("$0.00");
     }//GEN-LAST:event_clearBtnActionPerformed
 
     private void catCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_catCBActionPerformed
@@ -268,15 +278,30 @@ public class OrderForm extends javax.swing.JFrame {
     }//GEN-LAST:event_catCBActionPerformed
 
     private void addBtN1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtN1ActionPerformed
-        Object[] orderRow = new Object[4];
-        DefaultTableModel model = (DefaultTableModel) orderTable.getModel();
-        
-        
         int numItem = Integer.parseInt(itemCount.getText());
         double price = Double.parseDouble(itemPrice.getText().substring(1));
         double totalperItem = numItem * price;
         double totalOrderCost = Double.parseDouble(totalCost.getText().substring(1));
-        totalOrderCost += totalperItem;
+        
+        
+        
+        int rowCount = orderTable.getRowCount();
+        for(int i = 0; i < rowCount; i++){
+            if(orderTable.getValueAt(i,0).toString().equals((String) itemCB.getSelectedItem())){
+                int numItemTbl = Integer.parseInt(orderTable.getValueAt(i,1).toString());
+                int totalItem = numItem + numItemTbl;
+                totalperItem = totalItem * price;
+                orderTable.setValueAt(totalItem, i, 1);
+                orderTable.setValueAt(totalperItem, i, 3);
+                
+                totalOrderCost += totalperItem;
+                totalCost.setText("$"+Double.toString(totalOrderCost));
+                return;
+            }
+        }
+        
+        Object[] orderRow = new Object[4];
+        DefaultTableModel model = (DefaultTableModel) orderTable.getModel();
         
         orderRow[0] = itemCB.getSelectedItem();
         orderRow[1] = itemCount.getText();
@@ -284,6 +309,7 @@ public class OrderForm extends javax.swing.JFrame {
         orderRow[3] = totalperItem;
         model.addRow(orderRow);
         
+       totalOrderCost += totalperItem;
        totalCost.setText("$"+Double.toString(totalOrderCost));
         
     }//GEN-LAST:event_addBtN1ActionPerformed
