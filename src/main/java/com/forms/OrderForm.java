@@ -155,7 +155,7 @@ public class OrderForm extends javax.swing.JFrame {
         totalCost.setFont(new java.awt.Font("Poppins Medium", 1, 24)); // NOI18N
         totalCost.setForeground(new java.awt.Color(255, 255, 255));
         totalCost.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        totalCost.setText("$100.00");
+        totalCost.setText("$0.00");
         jPanel1.add(totalCost, new org.netbeans.lib.awtextra.AbsoluteConstraints(685, 540, 170, -1));
 
         jLabel7.setFont(new java.awt.Font("Poppins Medium", 1, 24)); // NOI18N
