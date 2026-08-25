@@ -1,7 +1,6 @@
 
 import com.formdev.flatlaf.FlatLightLaf;
-import com.forms.OrderForm;
-import com.forms.StockForm;
+import com.forms.Login;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -17,10 +16,7 @@ public class main {
         System.setProperty("flatlaf.useNativeLibrary", "false");
         FlatLightLaf.setup();
     java.awt.EventQueue.invokeLater(() -> {
-        // Replace 'MyForm' with the exact name of your current Java file
-       
-        
-        new OrderForm().setVisible(true);
+        new Login().setVisible(true);
     });
 }
 }

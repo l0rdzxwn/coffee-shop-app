@@ -63,7 +63,6 @@ public class OrderForm extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(1270, 800));
         setMinimumSize(new java.awt.Dimension(1270, 800));
-        setPreferredSize(new java.awt.Dimension(1270, 800));
 
         jPanel1.setBackground(new java.awt.Color(64, 32, 0));
         jPanel1.setMaximumSize(new java.awt.Dimension(1270, 800));
